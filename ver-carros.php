@@ -12,13 +12,14 @@ $carros = $result->fetch_all(MYSQLI_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Carros Disponíveis</title>
-    <link rel="stylesheet" href="src/CSS/pages/ver-carros.css">
+    <?php $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>
+    <link rel="stylesheet" href="<?= $base ?>/src/CSS/pages/ver-carros.css">
 </head>
 <body>
 
 <header>
     <a href="index.html">
-        <img src="assets\images\logos\Ayrton_Senna_Branco_logo_horizontal.png" alt="">
+        <img src="<?= $base ?>/assets/images/logos/Ayrton_Senna_Branco_logo_horizontal.png" alt="">
     </a>
 </header>
 

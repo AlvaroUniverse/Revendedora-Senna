@@ -42,57 +42,63 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desativar Carro</title>
-    <link rel="stylesheet" href="src/CSS/pages/excluir-carro.css">
+    <?php $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>
+    <link rel="stylesheet" href="<?= $base ?>/src/CSS/pages/excluir-carro.css">
 </head>
 <body>
     <header>
         <div id="logo-senna-header">
             <a href="index.html">
-                <img src="../assets/images/logos/Ayrton_Senna_Branco_logo_horizontal.png" alt="">
+                <img src="<?= $base ?>/assets/images/logos/Ayrton_Senna_Branco_logo_horizontal.png" alt="">
             </a>
         </div>
     </header>
     <br>
 
     <div class="divFormularioDesativar">
+        <div class="card">
+            <?php if ($mensagem): ?>
+                <?php $isSuccess = strpos($mensagem, 'sucesso') !== false; ?>
+                <p class="msg <?= $isSuccess ? 'msg--success' : 'msg--error' ?>">
+                    <?= htmlspecialchars($mensagem) ?>
+                </p>
+            <?php endif; ?>
 
-        <?php if ($mensagem): ?>
-            <p style="color: white; background: black; padding: 10px; border-radius: 5px;">
-                <?= htmlspecialchars($mensagem) ?>
-            </p>
-        <?php endif; ?>
+            <form action="" method="post">
+                <h1>Desativar Carro</h1>
+                <span class="hint">Selecione abaixo o carro que deseja desativar (ação irreversível).</span>
+                <table border="0">
+                    <tr>
+                        <td style="width:34%">Selecione o carro para desativar:</td>
+                        <td>
+                            <select name="selecionar-carro-excluir" required>
+                                <option value="" disabled selected>Escolha um carro</option>
 
-        <form action="" method="post">
-            <h1>Desativar Carro</h1>
-            <table border="1">
-                <tr>
-                    <td>Selecione o carro para desativar:</td>
-                    <td>
-                        <select name="selecionar-carro-excluir" required>
-                            <option value="" disabled selected>Escolha um carro</option>
+                                <?php foreach ($carros as $carro): ?>
+                                    <option value="<?= $carro['id'] ?>">
+                                        <?= htmlspecialchars($carro['nome_carro']) ?> —
+                                        <?= htmlspecialchars($carro['marca']) ?> —
+                                        <?= htmlspecialchars($carro['ano_carro']) ?>
+                                    </option>
+                                <?php endforeach; ?>
 
-                            <?php foreach ($carros as $carro): ?>
-                                <option value="<?= $carro['id'] ?>">
-                                    <?= htmlspecialchars($carro['nome_carro']) ?> —
-                                    <?= htmlspecialchars($carro['marca']) ?> —
-                                    <?= htmlspecialchars($carro['ano_carro']) ?>
-                                </option>
-                            <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
 
-                        </select>
-                    </td>
-                </tr>
-            </table>
+                <br>
 
-            <br>
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                    <input type="checkbox" name="check-responsa" id="check-responsa" style="cursor: pointer;" required>
+                    <label for="check-responsa">Me responsabilizo que, após desativar o carro, não terá como reverter essa ação.</label>
+                </div>
 
-            <input type="checkbox" name="check-responsa" id="check-responsa" style="cursor: pointer;" required>
-            <label for="check-responsa">Me responsabilizo que, após desativar o carro, não terá como reverter essa ação.</label>
+                <br>
 
-            <br><br>
-
-            <input type="submit" value="Desativar Carro" id="enviar-formulario">
-        </form>
+                <input type="submit" value="Desativar Carro" id="enviar-formulario">
+            </form>
+        </div>
     </div>
 
 </body>

@@ -1,54 +1,58 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    font-family: "Segoe UI", Arial, sans-serif;
+/* Estilo alinhado com adicionar-carros.css */
+:root{
+    --primary-color: #002776;
+    --primary-dark: #001a47;
+    --secondary-color: #00a550;
+    --secondary-light: #00d966;
+    --accent-yellow: #ffd700;
+    --accent-orange: #f77f00;
+    --text-dark: #1a1a1a;
+    --text-light: #666;
+    --border-color: #e0e0e0;
+    --background-color: #f8f9fa;
+    --background-light: #e8f1f8;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 20px rgba(0, 39, 118, 0.2);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-header {
-    background-color: #002c80;
-    padding: 15px 0;
-    text-align: center;
-    margin-bottom: 30px;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family: 'Poppins', 'Poppins_Font', sans-serif;
+    color:var(--text-dark);
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--background-light) 50%, #f0e8f8 100%);
+    min-height:100vh;position:relative;overflow-x:hidden;line-height:1.6
 }
 
-header img {
-    height: 60px;
-}
+/* decorative blobs like adicionar-carros */
+body::before{content:'';position:fixed;top:-50%;right:-10%;width:600px;height:600px;background:radial-gradient(circle, rgba(0,165,80,0.05) 0%, transparent 70%);border-radius:50%;z-index:-1}
+body::after{content:'';position:fixed;bottom:-30%;left:-5%;width:500px;height:500px;background:radial-gradient(circle, rgba(0,39,118,0.05) 0%, transparent 70%);border-radius:50%;z-index:-1}
 
-.container-lista {
-    width: 70%;
-    margin: 0 auto;
-    background: white;
-    border: 1px solid #222;
-    padding: 30px;
-    border-radius: 4px;
-}
+header{background:linear-gradient(135deg,var(--primary-color) 0%, var(--primary-dark) 100%);padding:20px 0;box-shadow:var(--shadow-hover);position:sticky;top:0;z-index:100;border-bottom:4px solid var(--secondary-color)}
+header a{display:inline-block}
+header img{width:180px;height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2));transition:transform .3s}
+header img:hover{transform:scale(1.05)}
 
-.container-lista h1 {
-    margin-top: 0;
-    font-size: 28px;
-    margin-bottom: 20px;
-    text-align: center;
-}
+.container-lista{width:100%;max-width:980px;margin:40px auto;padding:45px;background:white;border-radius:16px;box-shadow:var(--shadow-lg);position:relative;border:2px solid transparent;border-image:linear-gradient(135deg,var(--primary-color) 0%, var(--secondary-color) 100%) 1;overflow:hidden}
+.container-lista::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--primary-color),var(--secondary-color),var(--accent-orange),var(--primary-color));background-size:200% 100%;animation:shimmer 3s infinite}
 
-ul {
-    list-style: none;
-    padding: 0;
-}
+.container-lista h1{text-align:center;color:var(--primary-color);margin:0 0 20px;font-size:28px}
 
-li {
-    font-size: 17px;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
-li:last-child {
-    border-bottom: none;
-}
+ul{list-style:none;padding:0;display:grid;grid-template-columns:1fr;gap:14px}
 
-.desativado {
-    color: red;
-    font-weight: bold;
-    margin-left: 8px;
-}
+.car-item{display:flex;flex-direction:column;padding:18px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfbff);box-shadow:var(--shadow);border:1px solid var(--border-color)}
+.car-item .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.car-item strong{color:var(--primary-color);font-size:1.02rem}
+.meta{color:var(--text-light);font-size:0.95rem}
+
+.desativado{display:inline-block;background:linear-gradient(90deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06));color:#a82a2a;padding:6px 10px;border-radius:999px;font-weight:700;margin-left:8px;font-size:0.85rem}
+
+.actions{margin-top:10px;display:flex;gap:10px}
+.btn{padding:8px 12px;border-radius:8px;border:2px solid transparent;cursor:pointer;font-weight:600}
+.btn--primary{background:linear-gradient(135deg,var(--primary-color) 0%, var(--secondary-color) 100%);color:#fff}
+.btn--ghost{background:transparent;border-color:var(--border-color);color:var(--text-dark)}
+
+@media(min-width:720px){ul{grid-template-columns:1fr 1fr} .car-item{flex-direction:row;align-items:center}} 
+
