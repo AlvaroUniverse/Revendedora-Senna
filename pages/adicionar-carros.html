@@ -55,17 +55,12 @@
                         <p>Acessórios Disponíveis:</p>
                     </td>
                     <td>
-                        <div class="acessorios-container">
-                            <label><input type="checkbox" name="acessorios-carro" value="Ar Condicionado"> Ar Condicionado</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Vidros Elétricos"> Vidros Elétricos</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Direção Hidráulica"> Direção Hidráulica</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Travas Elétricas"> Travas Elétricas</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Espelhos Elétricos"> Espelhos Elétricos</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Teto Panorâmico"> Teto Panorâmico</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Sistema de Som"> Sistema de Som</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Câmera de Ré"> Câmera de Ré</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="GPS"> GPS</label>
-                            <label><input type="checkbox" name="acessorios-carro" value="Bancos em Couro"> Bancos em Couro</label>
+                        <div class="acessorio-input-wrapper">
+                            <input type="text" id="novo-acessorio" placeholder="Digite um acessório...">
+                            <button type="button" id="btn-adicionar-acessorio">Adicionar</button>
+                        </div>
+                        <div class="acessorios-container" id="acessorios-dinamicos">
+                            <!-- Checkboxes dinâmicas serão adicionadas aqui -->
                         </div>
                     </td>
                 </tr>
@@ -82,5 +77,140 @@
             <input type="submit" value="Enviar">
         </form>
     </div>
-</body>
-</html>
+
+    <script>
+        // Funcionalidade de acessórios dinâmicos
+        const inputAcessorio = document.getElementById('novo-acessorio');
+        const btnAdicionar = document.getElementById('btn-adicionar-acessorio');
+        const containerDinamico = document.getElementById('acessorios-dinamicos');
+
+        // Adicionar acessório ao clicar no botão ou pressionar Enter
+        btnAdicionar.addEventListener('click', adicionarAcessorio);
+        inputAcessorio.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                adicionarAcessorio();
+            }
+        });
+
+        function adicionarAcessorio() {
+            const valor = inputAcessorio.value.trim();
+            
+            // Validar entrada
+            if (valor === '') {
+                alert('Digite um acessório antes de adicionar!');
+                return;
+            }
+
+            // Verificar se o acessório já existe
+            const checkboxesExistentes = Array.from(containerDinamico.querySelectorAll('input[type="checkbox"]'))
+                .map(cb => cb.value);
+            
+            if (checkboxesExistentes.includes(valor)) {
+                alert('Este acessório já foi adicionado!');
+                inputAcessorio.value = '';
+                return;
+            }
+
+            // Criar label com checkbox
+            const label = document.createElement('label');
+            label.style.display = 'flex';
+            label.style.alignItems = 'center';
+            label.style.cursor = 'pointer';
+            label.style.padding = '12px 14px';
+            label.style.borderRadius = '9px';
+            label.style.transition = 'all 0.3s ease';
+            label.style.fontSize = '13px';
+            label.style.fontWeight = '500';
+            label.style.color = '#1a1a1a';
+            label.style.backgroundColor = 'white';
+            label.style.border = '2px solid transparent';
+            label.style.position = 'relative';
+            label.style.zIndex = '1';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'acessorios-carro';
+            checkbox.value = valor;
+            checkbox.style.width = '18px';
+            checkbox.style.height = '18px';
+            checkbox.style.marginRight = '10px';
+            checkbox.style.cursor = 'pointer';
+            checkbox.style.flexShrink = '0';
+            checkbox.style.accentColor = '#00a550';
+
+            const texto = document.createTextNode(valor);
+
+            label.appendChild(checkbox);
+            label.appendChild(texto);
+
+            // Adicionar evento hover
+            label.addEventListener('mouseenter', () => {
+                label.style.background = 'linear-gradient(135deg, rgba(0, 39, 118, 0.05) 0%, rgba(0, 165, 80, 0.05) 100%)';
+                label.style.borderColor = '#002776';
+                label.style.color = '#002776';
+                label.style.transform = 'translateX(4px)';
+                label.style.boxShadow = '0 4px 12px rgba(0, 39, 118, 0.1)';
+            });
+
+            label.addEventListener('mouseleave', () => {
+                if (!checkbox.checked) {
+                    label.style.background = 'white';
+                    label.style.borderColor = 'transparent';
+                    label.style.color = '#1a1a1a';
+                    label.style.transform = 'translateX(0)';
+                    label.style.boxShadow = 'none';
+                }
+            });
+
+            // Evento ao marcar/desmarcar
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    label.style.background = 'linear-gradient(135deg, rgba(0, 165, 80, 0.1) 0%, rgba(0, 165, 80, 0.05) 100%)';
+                    label.style.borderColor = '#00a550';
+                    label.style.color = '#00a550';
+                    label.style.fontWeight = '600';
+                } else {
+                    label.style.background = 'white';
+                    label.style.borderColor = 'transparent';
+                    label.style.color = '#1a1a1a';
+                    label.style.fontWeight = '500';
+                }
+            });
+
+            // Adicionar botão de remover (X) discreto
+            const btnRemover = document.createElement('button');
+            btnRemover.type = 'button';
+            btnRemover.innerHTML = '×';
+            btnRemover.style.marginLeft = 'auto';
+            btnRemover.style.background = 'transparent';
+            btnRemover.style.border = 'none';
+            btnRemover.style.color = '#999';
+            btnRemover.style.cursor = 'pointer';
+            btnRemover.style.fontSize = '20px';
+            btnRemover.style.padding = '0 4px';
+            btnRemover.style.transition = 'color 0.2s';
+
+            btnRemover.addEventListener('mouseenter', () => {
+                btnRemover.style.color = '#e63946';
+            });
+
+            btnRemover.addEventListener('mouseleave', () => {
+                btnRemover.style.color = '#999';
+            });
+
+            btnRemover.addEventListener('click', (e) => {
+                e.preventDefault();
+                label.remove();
+            });
+
+            label.appendChild(btnRemover);
+
+            // Adicionar ao container
+            containerDinamico.appendChild(label);
+
+            // Limpar input
+            inputAcessorio.value = '';
+            inputAcessorio.focus();
+        }
+    </script>
