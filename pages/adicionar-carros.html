@@ -25,7 +25,7 @@
                 <tr>
                     <td><p>Marca do Carro:</p></td>
                     <td>
-                        <select name="marcas" id="marcas-carros">
+                        <select name="marcas" id="marcas-carros" title="Marca do Carro" aria-label="Marca do Carro">
                             <option value="default" disabled selected>Selecione</option>
                             <option value="mclaren">Mclaren</option>
                             <option value="ferrari">Ferrari</option>
@@ -47,7 +47,7 @@
                         <p>Ano do carro:</p>
                     </td>
                     <td>
-                        <input type="number" name="ano-carro" id="ano-carro">
+                        <input type="number" name="ano-carro" id="ano-carro" placeholder="Ano do carro" title="Ano do carro">
                     </td>
                 </tr>
                 <tr>
@@ -55,7 +55,18 @@
                         <p>Acessórios Disponíveis:</p>
                     </td>
                     <td>
-                        <input type="number" name="acessorios-carro" id="acessorios-carro">
+                        <div class="acessorios-container">
+                            <label><input type="checkbox" name="acessorios-carro" value="Ar Condicionado"> Ar Condicionado</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Vidros Elétricos"> Vidros Elétricos</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Direção Hidráulica"> Direção Hidráulica</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Travas Elétricas"> Travas Elétricas</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Espelhos Elétricos"> Espelhos Elétricos</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Teto Panorâmico"> Teto Panorâmico</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Sistema de Som"> Sistema de Som</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Câmera de Ré"> Câmera de Ré</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="GPS"> GPS</label>
+                            <label><input type="checkbox" name="acessorios-carro" value="Bancos em Couro"> Bancos em Couro</label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -63,7 +74,7 @@
                         <p>Foto Única do Carro:</p>
                     </td>
                     <td>
-                        <input type="file" name="foto-carro" id="" accept="image/*">
+                        <input type="file" name="foto-carro" id="foto-carro" title="Foto do Carro" accept="image/*">
                     </td>
                 </tr>
             </table>

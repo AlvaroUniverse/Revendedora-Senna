@@ -5,7 +5,10 @@ $nome_vendedor = $_POST['nome-vendedor'];
 $marca = $_POST['marcas'];
 $nome_carro = $_POST['nome-carro'];
 $ano_carro = $_POST['ano-carro'];
-$acessorios = $_POST['acessorios-carro'];
+
+// Capturar acessórios selecionados
+$acessorios_array = isset($_POST['acessorios-carro']) ? $_POST['acessorios-carro'] : array();
+$acessorios = implode(", ", $acessorios_array);
 
 $foto_nome = null;
 
