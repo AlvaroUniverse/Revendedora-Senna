@@ -176,6 +176,21 @@ form h2::after {
     border-radius: 2px;
 }
 
+form h3 {
+    color: var(--primary-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.acessorios-vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #999;
+    padding: 20px;
+    margin: 0;
+}
+
 /* Table Styling */
 table {
     width: 100%;
@@ -280,40 +295,203 @@ select {
     padding-right: 40px;
 }
 
-/* Input e Botão para Acessórios Dinâmicos */
-.acessorio-input-wrapper {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-}
-
-#novo-acessorio {
-    flex: 1;
-    padding: 10px;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-family: 'Poppins', 'Poppins_Font', sans-serif;
-}
-
-#btn-adicionar-acessorio {
-    padding: 10px 16px;
+/* Botão Modal Acessórios */
+.btn-modal-acessorios {
+    width: 100%;
+    padding: 13px 16px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
     border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.btn-modal-acessorios:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* MODAL */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.ativo {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 25px 30px;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(0, 39, 118, 0.02) 0%, transparent 100%);
+}
+
+.modal-header h3 {
+    color: var(--primary-color);
+    font-size: 22px;
+    margin: 0;
+}
+
+.btn-fechar-modal {
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-fechar-modal:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.acessorios-form {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 2px dashed var(--border-color);
+}
+
+.acessorios-form .input-acessorio-nome {
+    grid-column: 1 / 2;
+}
+
+.acessorios-form .input-acessorio-valor {
+    grid-column: 2 / 3;
+}
+
+.acessorios-form .btn-acessorio {
+    grid-column: 1 / -1;
+}
+
+/* Estilo especial para o botão 'Funcionar' */
+.btn-acessorio.funcionar {
+    background: linear-gradient(135deg, #00a550 0%, #00d966 60%);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 165, 80, 0.18);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.btn-acessorio.funcionar:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(0, 165, 80, 0.22);
+    filter: brightness(1.03);
+}
+
+.btn-acessorio.funcionar:active {
+    transform: translateY(-1px) scale(0.995);
+    box-shadow: 0 8px 18px rgba(0, 165, 80, 0.14);
+}
+
+.modal-acessorios-lista h4 {
+    color: var(--primary-color);
+    font-size: 15px;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#acessorios-dinamicos {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    background: #f9f9f9;
+}
+
+.btn-secundario {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid var(--border-color);
+    color: var(--text-dark);
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
+    transition: all 0.2s ease;
     font-family: 'Poppins', 'Poppins_Font', sans-serif;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#btn-adicionar-acessorio:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 39, 118, 0.2);
-}
-
-#btn-adicionar-acessorio:active {
-    transform: translateY(0);
+.btn-secundario:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 /* Acessórios Section */
@@ -520,5 +698,238 @@ input[type="submit"]:active {
     body::after {
         width: 300px;
         height: 300px;
+    }
+}
+
+/* ========================================
+   ESTILOS DOS ACESSÓRIOS DINÂMICOS
+   ======================================== */
+
+.acessorio-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    animation: slideUp 0.3s ease;
+}
+
+.acessorio-item:hover {
+    background: #f0f7ff;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 39, 118, 0.1);
+}
+
+.acessorio-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.acessorio-checkbox {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.acessorio-checkbox:checked + .checkbox-custom {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-color: var(--secondary-color);
+    position: relative;
+}
+
+.acessorio-checkbox:checked + .checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.acessorio-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.acessorio-info strong {
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.acessorio-valor {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.acessorio-descricao {
+    color: var(--text-light);
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.btn-remover-acessorio {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--accent-red);
+    color: var(--accent-red);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Poppins', 'Poppins_Font', sans-serif;
+}
+
+.btn-remover-acessorio:hover {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* ========================================
+   TABELA DE ACESSÓRIOS SELECIONADOS
+   ======================================== */
+
+#acessorios-selecionados {
+    margin-top: 20px;
+}
+
+/* Form list: item simples com checkbox, nome e valor (apenas exibição no formulário) */
+.form-acessorio-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: white;
+    margin-bottom: 8px;
+}
+
+.form-acessorio-wrapper input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--secondary-color);
+}
+
+.form-acessorio-wrapper .form-acessorio-nome {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-acessorio-wrapper .form-acessorio-valor {
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+.tabela-acessorios-selecionados {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tabela-acessorios-selecionados thead {
+    background: linear-gradient(135deg, rgba(0, 39, 118, 0.08) 0%, rgba(0, 165, 80, 0.08) 100%);
+}
+
+.tabela-acessorios-selecionados th {
+    padding: 12px 16px;
+    text-align: left;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tabela-acessorios-selecionados tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s ease;
+}
+
+.tabela-acessorios-selecionados tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.tabela-acessorios-selecionados td {
+    padding: 12px 16px;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.tabela-acessorios-selecionados .total-acessorios {
+    background: linear-gradient(135deg, rgba(0, 39, 118, 0.05) 0%, rgba(0, 165, 80, 0.05) 100%);
+    font-weight: 700;
+}
+
+.tabela-acessorios-selecionados .total-acessorios td {
+    color: var(--primary-color);
+    padding: 15px 16px;
+    border-top: 2px solid var(--border-color);
+}
+
+/* Responsividade para modal */
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95vw;
+        max-height: 95vh;
+        margin: 0 auto;
+    }
+
+    .modal-header {
+        padding: 20px;
+    }
+
+    .modal-header h3 {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .acessorios-form {
+        grid-template-columns: 1fr;
+    }
+
+    .acessorios-form .input-acessorio-nome,
+    .acessorios-form .input-acessorio-valor,
+    .acessorios-form .textarea-acessorio,
+    .acessorios-form .btn-acessorio {
+        grid-column: 1;
+    }
+
+    .acessorio-item {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-remover-acessorio {
+        width: 100%;
     }
 }
