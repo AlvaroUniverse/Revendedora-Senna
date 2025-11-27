@@ -1,0 +1,18 @@
+Abrir pasta clonada no terminal
+
+git init = prepara um repositorio local 
+
+git clone = Clona repositorio do github para transforma em repositorio local do seu computador
+
+git status = alterações feitas no repositorio local
+
+git add [nome do arquivo] = preparar para dar commit
+
+git commit (-m "" para mandar mensagem) = adicionar mensagem de alteração
+
+git push = enviar tudo que foi commitado para o repositorio do github
+
+git pull = atualizar o repositorio local, pegando do github
+=====================================================================================================
+
+Recomndo pesquisar melhor sobre para ter mais conhecimento sobre
